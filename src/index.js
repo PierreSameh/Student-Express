@@ -19,7 +19,7 @@ app.get("/students/:id", async (req, res) => {
   const student = await Student.findById(req.params.id);
 
   if (!student) {
-    res.status(404);
+    return res.status(404);
   }
   res.status(200).send(student);
 });
@@ -35,7 +35,7 @@ app.put("/students/:id", async (req, res) => {
     new: true,
   });
   if (!student) {
-    res.status(404);
+    return res.status(404);
   }
   res.status(200).send(student);
 });
