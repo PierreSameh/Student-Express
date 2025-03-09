@@ -15,14 +15,36 @@ app.get("/students", async (req, res) => {
   res.send(students);
 });
 
+app.get("/students/:id", async (req, res) => {
+  const student = await Student.findById(req.params.id);
+
+  if (!student) {
+    res.status(404);
+  }
+  res.status(200).send(student);
+});
+
 app.post("/students", async (req, res) => {
   const student = await Student.create(req.body);
   student.save();
   res.status(201).send(student);
 });
 
+app.put("/students/:id", async (req, res) => {
+  const student = await Student.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  if (!student) {
+    res.status(404);
+  }
+  res.status(200).send(student);
+});
+
 app.delete("/students/:id", async (req, res) => {
   const student = await Student.findByIdAndDelete(req.params.id);
+  if (!student) {
+    res.status(404);
+  }
   res.status(200).send("Student Deleted Successfully");
 });
 
