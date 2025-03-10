@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const students = await Student.find();
-    res.send(student);
+    res.send(students);
   } catch (e) {
     res.status(500).json({ message: `Server Error occured, ${e}` });
   }
